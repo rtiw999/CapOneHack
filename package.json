@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "autoprefixer": "^9",
     "bootstrap": "^4.5.3",
+    "materialize-css": "^1.0.0-rc.2",
     "postcss": "^7",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
