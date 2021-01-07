@@ -8,9 +8,11 @@ module.exports = {
       gray: colors.coolGray,
       green: colors.green,
       red: colors.rose,
+      blue: colors.lightBlue,
       teal: colors.teal,
       amber: colors.amber,
       white: colors.white,
+      black: colors.black,
     },
     fontFamily: {
       sans: ['-apple-system', 'ui-sans-serif'],
