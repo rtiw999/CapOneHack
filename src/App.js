@@ -1,10 +1,14 @@
 import './App.css';
 import { Card } from './components/Card';
+import NavBar from './components/NavBar.js';
 import './index.css';
 
 function App() {
   return (
     <div class='box-content bg-amber-100 overflow-scroll'>
+      <div> 
+        <NavBar />
+      </div>
       <div class='flex box-border border-b border-gray-900 justify-evenly p-12'>
           <Card textColor='amber'/>
       </div>
