@@ -5,7 +5,7 @@ import '../index.css';
 export function Card(props) {
 
     return (
-        <div class='flex justify-evenly bg-white w-8/12 h-8/12 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105'>
+        <div class='flex justify-evenly bg-white w-8/12 h-8/12 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
             {/* This is where you'll put all of the information onto the card. You'll have to add your own divs and everything. */}
         </div>
     );

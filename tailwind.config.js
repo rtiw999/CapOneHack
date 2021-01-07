@@ -6,16 +6,15 @@ module.exports = {
   theme: {
     colors: {
       gray: colors.coolGray,
-      blue: colors.lightBlue,
+      green: colors.green,
       red: colors.rose,
-      pink: colors.fuchsia,
       teal: colors.teal,
       amber: colors.amber,
       white: colors.white,
     },
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
+      sans: ['-apple-system', 'ui-sans-serif'],
+      serif: ['Georgia', 'ui-serif'],
     },
     container: {
       padding: '2rem',
