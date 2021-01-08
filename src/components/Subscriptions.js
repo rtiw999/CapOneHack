@@ -75,9 +75,7 @@ export default class Subscription extends Component {
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${totalExpense}</span>
                 </div>
                 <div class='relative  left-3 p-2'>
-                    <span class='block text-2xl text-amber-500 font-sans'>You spent the most money in</span>
-                    <span class={`block font semi-bold text-6xl text-${textColor}-500`}>{max.month}</span>
-                    <span class='block text-2xl text-amber-500 font-sans'>spending</span> 
+                    <span class='block text-2xl text-amber-500 font-sans'>You spent the same amount of money every month:</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${max.money}</span>
                 </div>
             </>
@@ -95,7 +93,7 @@ export default class Subscription extends Component {
                     <VerticalGridLines />
                     <HorizontalGridLines />
                     <VerticalBarSeries data={graphData} color={graphColor} />
-                    <LabelSeries data={graphData} width={400} getLabel={d => `$${d.y}`} />
+                    <LabelSeries data={graphData} width={400} />
                     <XAxis />
                 </XYPlot>
             );

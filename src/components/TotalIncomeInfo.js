@@ -79,13 +79,13 @@ export default class IncomeInfo extends Component {
             <>
                 <div class='relative center p-3 border-b border-gray-400'> {/* Add fade-in here */}
                     <span class='block text-2xl text-amber-500 font-sans'>Total yearly income:</span>
-                    <span class={`block font-sans semi-bold text-6xl text-${textColor}-500`}>${totalIncome}</span>
+                    <span class='block font-sans semi-bold text-6xl text-green-500'>${totalIncome}</span>
                 </div>
                 <div class='relative left-3 p-2'>
-                    <span class='block text-2xl text-amber-500 font-sans'>You earnt the most money in</span>
-                    <span class={`block font semi-bold text-6xl text-${textColor}-500`}>{max.month}</span>
+                    <span class='block text-2xl text-amber-500 font-sans'>You earned the most money in</span>
+                    <span class='block font semi-bold text-6xl text-green-500'>{max.month}</span>
                     <span class='block text-2xl text-amber-500 font-sans'>earning</span>
-                    <span class={`block font-sans semi-bold text-6xl text-${textColor}-500`}>${max.money}</span>
+                    <span class='block font-sans semi-bold text-6xl text-green-500'>${max.money}</span>
                 </div>
             </>
         );
