@@ -50,7 +50,7 @@ export default function Prediction() {
         }).catch(err => console.log(err));
     })
 
-    if (oneYearData == -1 && twoYearData == -1) {
+    if (oneYearData === -1 && twoYearData === -1) {
         return <span class='animation-pulse font-sans text-teal-600 text-5xl'>Please wait as the data loads</span>;
     } else {
         return (

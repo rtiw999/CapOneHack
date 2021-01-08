@@ -18,7 +18,7 @@ export default function Navbar() {
           <span class='font-sans text-gray-800 text-lg'>MoneyTree</span>
         </div>
         <div class='transition ease-in duration-300 transform hover:scale-102 hover:shadow-md hover:bg-emerald-100 rounded-md w-15 h-7'>
-          <a target="_blank" href="https://www.capitalone.com" class='font-sans text-gray-600 text-1xl'>Welcome, {name}</a>
+          <a target="_blank" rel="noopener noreferrer" href="https://www.capitalone.com" class='font-sans text-gray-600 text-1xl'>Welcome, {name}</a>
         </div>
       </nav>
     </div>
