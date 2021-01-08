@@ -11,6 +11,7 @@ module.exports = {
       teal: colors.teal,
       amber: colors.amber,
       white: colors.white,
+      emerald: colors.emerald
     },
     fontFamily: {
       sans: ['-apple-system', 'ui-sans-serif'],
