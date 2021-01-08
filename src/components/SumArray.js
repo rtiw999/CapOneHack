@@ -1,8 +1,8 @@
 export default function sumArray(arr) {
     var sum = 0;
-    arr.map((num) => {
-        sum += num;
-    });
+    for (var i = 0; i < arr.length; i++) {
+        sum += arr[i];
+    }
 
     return sum;
 }
