@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { XYPlot, HorizontalGridLines, LabelSeries, VerticalGridLines, XAxis, VerticalBarSeries } from 'react-vis';
+import { XYPlot, LabelSeries, XAxis, VerticalBarSeries } from 'react-vis';
 import sumArray from './SumArray';
 import '../index.css';
 
@@ -74,10 +74,10 @@ export default class ExpenseInfo extends Component {
                     <span class='block text-2xl text-amber-500 font-sans'>Total yearly expenses:</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${totalExpense}</span>
                 </div>
-                <div class='relative  left-3 p-2'>
+                <div class='relative left-3 p-2'>
                     <span class='block text-2xl text-amber-500 font-sans'>You spent the most money in</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>{max.month}</span>
-                    <span class='block text-2xl text-amber-500 font-sans'>spending</span>
+                    <span class='block text-2xl text-amber-500 font-sans pt-3'>spending</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${max.money}</span>
                 </div>
             </>
@@ -92,8 +92,6 @@ export default class ExpenseInfo extends Component {
 
             return (
                 <XYPlot height={400} width={600} xType="ordinal" margin={{ bottom: 70, top: 20 }}>
-                    <VerticalGridLines />
-                    <HorizontalGridLines />
                     <VerticalBarSeries data={graphData} color={graphColor} />
                     <LabelSeries data={graphData} width={400} getLabel={d => `$${d.y}`} />
                     <XAxis />
@@ -116,11 +114,11 @@ export default class ExpenseInfo extends Component {
         } else {
             return (
                 <div class='flex justify-evenly bg-white w-8/12 h-full rounded-xl shadow-md transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg overflow-scroll'>
-                    <div class='flex flex-col w-4/12 static p-2 transform scale-100 md:scale-75 sm:scale-75'>
-                        {this.displayText(textColor)}
-                    </div>
                     <div class='w-8/12 mr-5 transform scale-100 md:scale-90'>
                         {this.displayGraph()}
+                    </div>
+                    <div class='flex flex-col w-4/12 static p-2 transform scale-100 md:scale-75 sm:scale-75'>
+                        {this.displayText(textColor)}
                     </div>
                 </div>
             );

@@ -8,14 +8,13 @@ module.exports = {
       gray: colors.coolGray,
       green: colors.green,
       red: colors.rose,
-      blue: colors.lightBlue,
       teal: colors.teal,
       amber: colors.amber,
       white: colors.white,
       emerald: colors.emerald
     },
     fontFamily: {
-      sans: ['-apple-system', 'ui-sans-serif'],
+      sans: ['-apple-system', 'Roboto', 'ui-sans-serif'],
       serif: ['Georgia', 'ui-serif'],
     },
     container: {

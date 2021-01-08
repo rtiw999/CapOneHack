@@ -1,61 +1,26 @@
-import React from "react";
-import "../wrapped.css";
-import logo from "../pictures/MoneyTreeLogo.png";
+import React, { useState, useEffect } from "react";
+import '../index.css'
 
-export default function Navbar({ fixed }) {
-  const [navbarOpen, setNavbarOpen] = React.useState(false);
+export default function Navbar() {
+  const [name, setName] = useState("");
+
+  useEffect(() => {
+    fetch('https://moneytreesapi.herokuapp.com/name')
+      .then(res => res.json())
+      .then(data => setName(data.name))
+      .catch(err => console.error(err));
+  })
+
   return (
-    <>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-black-500 mb-3">
-        <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
-          <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start ">
-            <a
-              className="text-sm font-bold leading-relaxed inline-block mr-4 
-              py-2 whitespace-no-wrap uppercase text-white"
-              href="#pablo"
-              style={{
-                fontFamily: "Arial Rounded MT Bold",
-                fontSize: "24px",
-                left: "5px",
-              }}
-            >
-              MoneyTree
-            </a>
-            <button
-              className="text-white cursor-pointer text-xl leading-none px-3 
-              py-1 border border-solid border-transparent rounded bg-transparent 
-              block lg:hidden outline-none focus:outline-none"
-              type="button"
-              onClick={() => setNavbarOpen(!navbarOpen)}
-            >
-              <i className="fas fa-bars"></i>
-            </button>
-          </div>
-          <div
-            className={
-              "lg:flex flex-grow items-center" +
-              (navbarOpen ? " flex" : " hidden")
-            }
-            id="example-navbar-danger"
-          >
-            <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-            <li className="nav-item">
-            <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i>
-                  <span className="ml-2">Welcome User</span>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75"
-                  href="#pablo"
-                >
-                  <i className="fab fa-pinterest text-lg leading-lg text-white opacity-75"></i>
-                  <span className="ml-2">LOG OUT</span>
-                </a>
-              </li>
-            </ul>
-          </div>
+    <div class="container mx-auto bg-emerald-300 p-5">
+      <nav class="flex justify-between">
+        <div>
+          <span class='font-sans text-gray-800 text-lg'>MoneyTree</span>
+        </div>
+        <div>
+          <span class='font-sans text-gray-600 text-1xl'>Welcome, {name}</span>
         </div>
       </nav>
-    </>
+    </div>
   );
 }

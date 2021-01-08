@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import '../index.css';
-import { XYPlot, HorizontalGridLines, LabelSeries, VerticalGridLines, YAxis, HorizontalBarSeries } from 'react-vis';
+import { XYPlot, LabelSeries, YAxis, HorizontalBarSeries } from 'react-vis';
 import sumArray from './SumArray';
 
 const spendingCategories = [
     { y: "Food", x: 5100 },
     { y: "Utility", x: 846 },
-    { y: "Transport", x: 1242 },
+    { y: "Transportation", x: 1242 },
     { y: "Subscriptions", x: 708 },
-
+    { y: "Other", x: 0 },
 ];
 
 export default class SpendRank extends Component {
@@ -49,12 +49,72 @@ export default class SpendRank extends Component {
         this.setState({ isLoading: false });
     }
 
-    findMax = (totalExp) => {
-        var max = totalExp[0].y;
-        for (var i = 1; i < totalExp.length(); i++) {
-            if (totalExp[i].y > max) {
-                max = totalExp[i].y;
-            }
+    mergeData = () => {
+        spendingCategories[0].x = sumArray(this.state.foodData);
+        spendingCategories[1].x = sumArray(this.state.utilityData);
+        spendingCategories[2].x = sumArray(this.state.transportationData);
+        spendingCategories[3].x = sumArray(this.state.subscriptionsData);
+        spendingCategories[4].x = sumArray(this.state.otherData);
+
+        return spendingCategories;
+    }
+
+    findMaxExpense = () => {
+        const food = sumArray(this.state.foodData);
+        const utility = sumArray(this.state.utilityData);
+        const transport = sumArray(this.state.transportationData);
+        const sub = sumArray(this.state.subscriptionsData);
+        const other = sumArray(this.state.otherData);
+
+        var arr = [food, utility, transport, sub, other];
+        var sorted = arr.sort((a,b) => a-b);
+
+        if (sorted[4] === food)
+            return { y: "Food", x: food }
+        else if (sorted[4] === utility) {
+            console.log(arr[4]);
+            return { y: "Utilities", x: utility }
+        } else if (sorted[4] === transport)
+            return { y: "Transportation", x: transport }
+        else if (sorted[4] === sub)
+            return { y: "Subscriptions", x: sub }
+        else
+            return { y: "Other", x: other }
+    }
+
+    displayText = () => {
+        const max = this.findMaxExpense();
+
+        return (
+            <>
+                <div class='relative center pb-3 border-b border-gray-400'> {/* Add fade-in here */}
+                    <span class='block text-2xl text-amber-500 font-sans'>You splurged the most on</span>
+                    <span class='block font semi-bold text-6xl text-red-500 pt-3'>{max.y}</span>
+                </div>
+                <div class='relative pt-5'>
+                    <span class='block text-2xl text-amber-500 font-medium font-sans'>Spending</span>
+                    <span class='block font-sans semi-bold text-6xl text-red-500'>${max.x}</span>
+                    <span class='text-2xl text-amber-500 font-medium font-sans'>on it this year</span>
+                </div>
+            </>
+        );
+
+    }
+
+    displayGraph = () => {
+        if (this.state.foodData[0] > 0 && this.state.otherData[0] > 0 && this.state.subscriptionsData[0] > 0 &&
+            this.state.transportationData[0] > 0 && this.state.utilityData[0] > 0) {
+            const graphData = this.mergeData();
+
+            return (
+                <XYPlot yType="ordinal" width={500} height={400} margin={{ left: 120, top: 30 }}>
+                    <YAxis />
+                    <HorizontalBarSeries data={graphData} />
+                    <LabelSeries data={graphData} getLabel={d => `$${d.x}`} />
+                </XYPlot>
+            )
+        } else {
+            return <span class='animation-pulse font-sans text-teal-600 text-5xl'>Please wait as the data loads</span>;
         }
     }
 
@@ -67,27 +127,12 @@ export default class SpendRank extends Component {
             );
         } else {
             return (
-                <div class='flex justify-evenly bg-white w-8/12 h-8/12 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
+                <div class='flex justify-evenly bg-white w-8/12 h-8/12 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg overflow-scroll'>
                     <div class='flex flex-col w-5/12 mt-2 static p-5 transform scale-100 md:scale-75'>
-                        <div class='relative p-3'>
-                            <span class='block text-3xl text-amber-500 font-medium font-sans'>You spent a total of</span>
-                            <span class={`block font semi-bold text-6xl text-emerald-500`}>${this.state.totalExpenses}</span>
-                            <span class='text-2xl text-amber-500 font-medium font-sans'>for the year</span>
-                        </div>
-                        <div class='relative p-3'>
-                            <span class='block text-3xl text-amber-500 font-medium font-sans'>You really loved food and spent</span>
-                            <span class='block font semi-bold text-6xl text-emerald-500'>${spendingCategories[0].x}</span>
-                            <span class='text-2xl text-amber-500 font-medium font-sans'>on it</span>
-                        </div>
+                        {this.displayText()}
                     </div>
-                    <div class='w-7/12 ml-3 transform scale-100 md:scale-75'>
-                        <XYPlot yType="ordinal" width={500} height={400} margin={{ left: 120, top: 30 }}>
-                            {/* <VerticalGridLines />
-                        <HorizontalGridLines /> */}
-                            <YAxis />
-                            <HorizontalBarSeries data={spendingCategories} />
-                            <LabelSeries data={spendingCategories} getLabel={d => d.x} />
-                        </XYPlot>
+                    <div class='w-7/12 ml-3 transform scale-100 md:scale-90'>
+                        {this.displayGraph()}
                     </div>
                 </div>
             );

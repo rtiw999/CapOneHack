@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { XYPlot, HorizontalGridLines, LabelSeries, VerticalGridLines, XAxis, VerticalBarSeries } from 'react-vis';
+import { XYPlot, LabelSeries, XAxis, VerticalBarSeries } from 'react-vis';
 import sumArray from './SumArray';
 import '../index.css'
 
@@ -64,7 +64,6 @@ export default class IncomeInfo extends Component {
         if (this.state.incomeData !== []) {
             for (var i = 0; i < 12; i++) {
                 dataplotArr[i].y = arr[i];
-                console.log(arr[i]);
             }
         }
 
@@ -80,13 +79,13 @@ export default class IncomeInfo extends Component {
             <>
                 <div class='relative center p-3 border-b border-gray-400'> {/* Add fade-in here */}
                     <span class='block text-2xl text-amber-500 font-sans'>Total yearly income:</span>
-                    <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${totalIncome}</span>
+                    <span class={`block font-sans semi-bold text-6xl text-${textColor}-500`}>${totalIncome}</span>
                 </div>
-                <div class='relative  left-3 p-2'>
+                <div class='relative left-3 p-2'>
                     <span class='block text-2xl text-amber-500 font-sans'>You earnt the most money in</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>{max.month}</span>
                     <span class='block text-2xl text-amber-500 font-sans'>earning</span>
-                    <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${max.money}</span>
+                    <span class={`block font-sans semi-bold text-6xl text-${textColor}-500`}>${max.money}</span>
                 </div>
             </>
         );
@@ -99,8 +98,6 @@ export default class IncomeInfo extends Component {
 
             return (
                 <XYPlot height={400} width={600} xType="ordinal" margin={{ bottom: 70, top: 20 }}>
-                    <VerticalGridLines />
-                    <HorizontalGridLines />
                     <VerticalBarSeries data={graphData} color={graphColor} />
                     <LabelSeries data={graphData} width={400} getLabel={d => `$${d.y}`} />
                     <XAxis />
