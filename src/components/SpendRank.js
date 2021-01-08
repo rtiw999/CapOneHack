@@ -28,7 +28,7 @@ export default class SpendRank extends Component {
     componentDidMount() {
         Promise.all([
             fetch("https://moneytreesapi.herokuapp.com/utility/12"),
-            fetch("https://moneytreesapi.herokuapp.com/food/2"),
+            fetch("https://moneytreesapi.herokuapp.com/food/12"),
             fetch("https://moneytreesapi.herokuapp.com/transportation/12"),
             fetch("https://moneytreesapi.herokuapp.com/subscriptions/12"),
             fetch("https://moneytreesapi.herokuapp.com/other/12")

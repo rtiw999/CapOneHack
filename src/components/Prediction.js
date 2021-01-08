@@ -55,8 +55,8 @@ export default function Prediction() {
     } else {
         return (
             <>
-                <div class='flex justify-evenly bg-gray-200 w-4/12 h-40 mt-10 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
-                    <span class="block text-2xl text-amber-700 font-sans pr-4">Next month, you'll be</span>
+                <div class='flex justify-evenly bg-gray-200 w-6/12 h-40 mt-10 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
+                    <span class="block text-1xl text-amber-700 font-sans pr-4">Next month, you'll have a predicted net marginal income of</span>
                     <div class="flex justify-center">
                         <div class='border-r border-gray-400 pr-3'>
                             <span class={`font-sans semi-bold text-6xl text-${budgetYearOne ? 'green' : 'red'}-500`}>${Math.round(oneYearData * 100) / 100}</span>
@@ -68,7 +68,7 @@ export default function Prediction() {
                         </div>
                     </div>
                 </div>
-                <div class='flex justify-evenly bg-white w-6/12 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
+                <div class='flex flex-col bg-white w-6/12 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
                     <XYPlot xType="ordinal" width={600} height={400} margin={{left: 60}}>
                         <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
                         <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
