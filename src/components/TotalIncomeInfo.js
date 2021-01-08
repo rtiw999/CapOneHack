@@ -63,7 +63,7 @@ export default class IncomeInfo extends Component {
     mergeData = arr => {
         for (var i = 0; i < 12; i++) {
             dataplotArr[i].y = this.state.incomeData[i];
-            console.log(dataplotArr[i].x + " " + this.state.incomeData[i]);
+            console.log(dataplotArr[i].toString() + " " + this.state.incomeData.toString());
         }
 
         return dataplotArr;
