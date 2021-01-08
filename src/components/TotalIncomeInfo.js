@@ -41,7 +41,7 @@ export default class IncomeInfo extends Component {
                     monthsData: data.months,
                 })
             }).catch(err => console.error(err));
-        
+
         this.setState({ isLoading: false });
     }
 
@@ -61,9 +61,11 @@ export default class IncomeInfo extends Component {
 
     // Creates an array of objects that can be used by React-vis to graph data
     mergeData = arr => {
-        for (var i = 0; i < 12; i++) {
-            dataplotArr[i].y = this.state.incomeData[i];
-            console.log(dataplotArr[i].toString() + " " + this.state.incomeData.toString());
+        if (this.state.incomeData !== []) {
+            for (var i = 0; i < 12; i++) {
+                dataplotArr[i].y = arr[i];
+                console.log(arr[i]);
+            }
         }
 
         return dataplotArr;
@@ -72,28 +74,45 @@ export default class IncomeInfo extends Component {
     displayText = (textColor) => {
         const totalIncome = sumArray(this.state.incomeData);
         const max = this.findMaxMonth(this.state.incomeData, this.state.monthsData);
+        this.mergeData(this.state.incomeData);
 
         return (
             <>
-                <div class='relative top-0 left-3 p-3'> {/* Add fade-in here */}
-                    <span class='block text-2xl text-amber-500 font-medium font-sans'>Your total income for the year was</span>
+                <div class='relative center p-3 border-b border-gray-400'> {/* Add fade-in here */}
+                    <span class='block text-2xl text-amber-500 font-sans'>Total yearly income:</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${totalIncome}</span>
-                    <span class='block text-2xl text-amber-500 font-sans'>this year!</span>
                 </div>
-                <div class='relative top-4 left-3 p-3'>
-                    <span class='block text-2xl text-amber-500 font-medium font-sans'>You made the most money in</span>
+                <div class='relative  left-3 p-2'>
+                    <span class='block text-2xl text-amber-500 font-sans'>You earnt the most money in</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>{max.month}</span>
-                    <span class='block text-2xl text-amber-500 font-medium font-sans'>pulling in</span>
+                    <span class='block text-2xl text-amber-500 font-sans'>earning</span>
                     <span class={`block font semi-bold text-6xl text-${textColor}-500`}>${max.money}</span>
                 </div>
             </>
         );
     }
 
+    displayGraph = () => {
+        if (this.state.incomeData[0] > 0) {
+            const graphColor = "#47e664";
+            const graphData = this.mergeData(this.state.incomeData);
+
+            return (
+                <XYPlot height={400} width={600} xType="ordinal" margin={{ bottom: 70, top: 20 }}>
+                    <VerticalGridLines />
+                    <HorizontalGridLines />
+                    <VerticalBarSeries data={graphData} color={graphColor} />
+                    <LabelSeries data={graphData} width={400} getLabel={d => `$${d.y}`} />
+                    <XAxis />
+                </XYPlot>
+            );
+        } else {
+            return <span class='animation-pulse font-sans text-teal-600 text-5xl'>Please wait as the data loads</span>;
+        }
+    }
+
     render() {
         const textColor = 'green';
-        const graphColor = "#47e664";
-        const graphData = this.mergeData();
 
         if (this.state.isLoading) {
             return (
@@ -104,18 +123,12 @@ export default class IncomeInfo extends Component {
         } else {
             return (
                 <div class='flex justify-evenly bg-white w-8/12 h-full rounded-xl shadow-md transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg overflow-scroll'>
-                    <div class='flex flex-col w-4/12 ml-4 static p-5 transform scale-100 md:scale-75'>
+                    <div class='flex flex-col w-4/12 ml-4 static p-5 transform scale-100 md:scale-90'>
                         {this.displayText(textColor)}
                     </div>
-                    <div class='w-8/12 mr-5 transform scale-100 md:scale-75'>
-                        <XYPlot height={400} width={600} xType="ordinal" margin={{ bottom: 70, top: 20 }}>
-                            <VerticalGridLines />
-                            <HorizontalGridLines />
-                            <VerticalBarSeries data={graphData} color={graphColor} />
-                            <LabelSeries data={graphData} width={400} getLabel={d => d.y} />
-                            <XAxis />
-                        </XYPlot>
-                    </div>
+                    <div class='w-8/12 mr-5 transform scale-100 md:scale-90 sm:scale-75'>
+                        {this.displayGraph()}
+                    </div> 
                 </div>
             );
         }
