@@ -68,7 +68,7 @@ export default function Prediction() {
                         </div>
                     </div>
                 </div>
-                <div class='flex flex-col bg-white w-6/12 rounded-xl shadow-md p-12 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
+                <div class='flex flex-col bg-white w-6/12 rounded-xl shadow-md p-3 transition ease-in duration-500 transform hover:scale-105 hover:shadow-lg'>
                     <XYPlot xType="ordinal" width={600} height={400} margin={{left: 60}}>
                         <HorizontalGridLines style={{ stroke: '#B7E9ED' }} />
                         <VerticalGridLines style={{ stroke: '#B7E9ED' }} />
